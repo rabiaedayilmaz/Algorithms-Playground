@@ -32,11 +32,13 @@ def IndicesKmers(seq, k):
 
 def FindClumps(sequence, k, l, t):
     """
-    :param sequence: a str for gene
-    :param k: an int for k-mers
-    :param l: an int for window length
-    :param t: an int for the lowest required frequency value
-    :return: all the k-mers forming (L-t) clumps
+    Parameters:
+        sequence: a string the genome expression
+        k: an int desired k-mer size
+        l: an int window size
+        t: an int clump size
+    Returns:
+        a list of k-mer clumps of genome
     """
     clumps = []
     for i in range(len(sequence)-l+1):
@@ -47,6 +49,16 @@ def FindClumps(sequence, k, l, t):
     return list(set(clumps))
 
 def BetterFindClumps(s, k, l, t):
+    """
+        Parameters:
+            s: a string the genome expression
+            k: an int desired k-mer size
+            l: an int window size
+            t: an int clump size
+        Returns:
+            a list of k-mer clumps of genome
+        """
+
     from collections import defaultdict
     res = set()
     indices = defaultdict(list)
@@ -58,8 +70,6 @@ def BetterFindClumps(s, k, l, t):
         if len(indices[kterm]) == t:
             res.add(kterm)
     return res
-
-
 
 
 tic = time.time()
