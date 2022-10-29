@@ -60,13 +60,20 @@ def BetterFindClumps(s, k, l, t):
         """
 
     from collections import defaultdict
+    # init vars for result and start indices of kmers
     res = set()
     indices = defaultdict(list)
     for i in range(len(s) - k + 1):
+        # get the k-mer by windowing genome expression
         kterm = s[i: i+k]
+        # while k-mer genome exists in dict
+        # delete k-mers if:
+        # length of overlapping k-mer length windowed genome sequences is larger than window size
         while indices[kterm] and i+k-indices[kterm][0] > l:
             indices[kterm].pop(0)
+        # save the start indices of k-mers
         indices[kterm].append(i)
+        # select the k-mers that has amount of start indices equals t-clump size
         if len(indices[kterm]) == t:
             res.add(kterm)
     return res
